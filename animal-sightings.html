@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Sightings - Yard Sign</title>
+    <meta name="description" content="Trail cam photos and wildlife video caught on camera in a native garden, including foxes, skunks, coyotes, and hummingbirds.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream1': '#FAF3E1',
+                        'cream2': '#F5E7C6',
+                        'lime': '#C6D870',
+                    },
+                    fontFamily: {
+                        'fraunces': ['Fraunces', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .fade-in { animation: fadeIn 0.6s ease-in; }
+        .gradient-headline {
+            background: linear-gradient(135deg, #FF1744, #FF6B9D, #FF8C42);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+        .section-headline {
+            color: #0D9488;
+        }
+        .cam-card {
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cam-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(67,35,35,0.18);
+        }
+        .cam-photo-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .cam-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: 'Fraunces', serif;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            color: white;
+            z-index: 2;
+        }
+        .cam-tag-skunk { background: rgba(13,148,136,0.92); }
+        .cam-tag-opossum { background: rgba(255,107,157,0.92); }
+        .cam-tag-fox { background: rgba(255,140,66,0.92); }
+        .cam-tag-raccoon { background: rgba(209,123,15,0.92); }
+        .cam-tag-coyote { background: rgba(67,35,35,0.85); }
+        body { font-family: 'Inter', sans-serif; color: #312818; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Fraunces', serif; }
+        #menuIcon, #closeIcon { transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; }
+        #menuIcon.hidden, #closeIcon.hidden { opacity: 0; transform: rotate(90deg); }
+        #menuIcon:not(.hidden), #closeIcon:not(.hidden) { opacity: 1; transform: rotate(0deg); }
+        .avant-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-family: 'Fraunces', serif;
+        }
+        .avant-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0D9488, #312818);
+            transition: width 0.3s ease;
+        }
+        .avant-link:hover::after { width: 100%; }
+        .avant-link:hover { transform: translateX(5px); }
+        p a, a {
+            text-decoration: underline;
+            text-decoration-color: #0D9488;
+            color: #FF6B9D;
+            font-weight: bold;
+        }
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-container {
+            overflow: hidden;
+            white-space: nowrap;
+            background-color: #E8D33F;
+            border-top: 1px solid #432323;
+            border-bottom: 1px solid #432323;
+            padding: 1rem 0;
+        }
+        .ticker-content { display: inline-flex; animation: ticker-scroll 30s linear infinite; }
+        .ticker-message {
+            display: inline-block;
+            padding: 0 2rem;
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #432323;
+        }
+        .ticker-message a {
+            color: #FF6B9D;
+            text-decoration: underline;
+            text-decoration-color: #0D9488;
+            font-weight: bold;
+        }
+        .ticker-separator { display: inline-block; padding: 0 1rem; color: #432323; }
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #B7F0AD, #E8D33F);
+            color: #432323;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #backToTop.visible { opacity: 1; }
+        #backToTop:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="min-h-screen" style="background-color: #FFF8DC;">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-sm z-50" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); background-size: 200% 200%; animation: gradientShift 5s ease infinite;">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between relative">
+                <div class="w-10 md:w-0"></div>
+                <h1 class="text-2xl md:text-3xl font-bold text-center flex-1" style="color: #312818; letter-spacing: 2px;">In Bloom</h1>
+                <div class="md:hidden flex items-center justify-center">
+                    <button id="mobileMenuBtn" class="p-2 relative flex items-center justify-center" style="color: #432323;" aria-label="Toggle menu">
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <nav id="mainNav" class="hidden md:flex mt-4 justify-center gap-8 md:gap-12">
+                <a href="index.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">About</a>
+                <a href="resources.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+            <nav id="mobileNav" class="hidden md:hidden mt-4 flex-col gap-6 py-4">
+                <a href="index.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">About this Garden</a>
+                <a href="resources.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Ticker Banner -->
+    <div class="ticker-container">
+        <div class="ticker-content">
+            <span class="ticker-message">Welcome Neighbor! Enjoy your walk!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Plant more native plants!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Mosquito fogging is a scam! Learn more in the <a href="about.html">Q&A</a></span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Welcome Neighbor! Enjoy your walk!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Plant more native plants!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Mosquito fogging is a scam! Learn more in the <a href="about.html">Q&A</a></span>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="w-full py-12 fade-in" style="background: linear-gradient(135deg, rgba(183, 240, 173, 0.1), rgba(232, 211, 63, 0.1)); width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-center gradient-headline" style="letter-spacing: 2px;">Animal Sightings</h2>
+            <p class="text-base md:text-lg leading-relaxed text-center" style="color: #432323;">Trail cam photos and wildlife caught on camera in the garden.</p>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+
+        <!-- Trail Cam Photos -->
+        <section class="mb-12 fade-in">
+            <h3 class="text-2xl md:text-4xl font-bold mb-6 section-headline">Trail Cam Photos</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-skunk">Skunk</span>
+                        <img src="Images/Trailcam1.jpg" alt="Trail cam 1 - Skunk" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Looking for dinner (grubs)</p>
+                </div>
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-opossum">Opossum</span>
+                        <img src="Images/Trailcam2.jpg" alt="Trail cam 2 - Opossum" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Passing through</p>
+                </div>
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-fox">Grey fox</span>
+                        <img src="Images/trailcam3.jpg" alt="Trail cam 3 - Grey fox" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">My guess, based on the rounded ears</p>
+                </div>
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-raccoon">Raccoons</span>
+                        <img src="Images/trailcam4.jpg" alt="Trail cam 4 - Raccoons" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Passing through</p>
+                </div>
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-coyote">Coyote</span>
+                        <img src="Images/trailcam5.jpg" alt="Trail cam 5 - Coyote" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Looking for dinner</p>
+                </div>
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-skunk">Skunk</span>
+                        <img src="Images/trailcam6.jpg" alt="Trail cam 6 - Skunk spraying" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Spraying my camera</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top -->
+    <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); border-top: 3px solid #312818;">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Site Navigation</h3>
+                    <nav class="flex flex-col gap-2">
+                        <a href="index.html" class="hover:underline" style="color: #FF6B9D;">Home</a>
+                        <a href="about.html" class="hover:underline" style="color: #FF6B9D;">About this Garden</a>
+                        <a href="resources.html" class="hover:underline" style="color: #FF6B9D;">Resources</a>
+                        <a href="animal-sightings.html" class="hover:underline" style="color: #FF6B9D;">Animal Sightings</a>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Contact</h3>
+                    <a href="https://forms.gle/whibKt9KnqJ884Up8" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: #FF6B9D;">Contact Me</a>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-t" style="border-color: rgba(67, 35, 35, 0.2);">
+                <p style="color: #1a1a1a; font-weight: 600;">Interactive Yard Sign • &copy; <span id="currentYear"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+            } else {
+                video.pause();
+            }
+        }
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Auto-update footer year
+        const yearSpan = document.getElementById('currentYear');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.pageYOffset > 300);
+        });
+    </script>
+</body>
+</html>

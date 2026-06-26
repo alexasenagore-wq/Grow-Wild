@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Bloom - Yard Sign</title>
+    <meta name="description" content="A native garden yard sign sharing plant species, pollinator sightings, and wildlife caught on camera in a Northbrook, IL backyard habitat.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream1': '#FAF3E1',
+                        'cream2': '#F5E7C6',
+                        'lime': '#C6D870',
+                    },
+                    fontFamily: {
+                        'fraunces': ['Fraunces', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px) rotate(-5deg); }
+            to { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px) rotate(5deg); }
+            to { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .slide-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        .slide-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #312818;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fraunces', serif;
+        }
+        #menuIcon, #closeIcon {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #menuIcon.hidden, #closeIcon.hidden {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+        #menuIcon:not(.hidden), #closeIcon:not(.hidden) {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        .avant-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .avant-card:hover {
+            transform: translateY(-8px) rotate(1deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(67, 35, 35, 0.2);
+        }
+        .avant-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-family: 'Fraunces', serif;
+        }
+        .avant-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0D9488, #312818);
+            transition: width 0.3s ease;
+        }
+        .avant-link:hover::after {
+            width: 100%;
+        }
+        .avant-link:hover {
+            transform: translateX(5px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0D9488, #D17B0F, #E8D33F);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+        .gradient-headline {
+            background: linear-gradient(135deg, #FF1744, #FF6B9D, #FF8C42);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+        .section-headline {
+            color: #0D9488;
+        }
+        .cam-card {
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cam-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(67,35,35,0.18);
+        }
+        .cam-photo-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .cam-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: 'Fraunces', serif;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            color: white;
+            z-index: 2;
+        }
+        .cam-tag-skunk { background: rgba(13,148,136,0.92); }
+        .cam-tag-opossum { background: rgba(255,107,157,0.92); }
+        .cam-tag-fox { background: rgba(255,140,66,0.92); }
+        .cam-tag-raccoon { background: rgba(209,123,15,0.92); }
+        .cam-tag-coyote { background: rgba(67,35,35,0.85); }
+        .tilt-card {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: transform 0.3s ease;
+        }
+        .tilt-card:hover {
+            transform: perspective(1000px) rotateX(-5deg) rotateY(5deg);
+        }
+        /* Underline all links in paragraph body text */
+        p a, .accordion-body a, a {
+            text-decoration: underline;
+            text-decoration-color: rgba(13, 148, 136, 0.4);
+            color: #0D9488;
+            font-weight: 600;
+        }
+        p a:hover, .accordion-body a:hover, a:hover {
+            text-decoration-color: #0D9488;
+        }
+        a[style*="text-decoration: underline"] {
+            text-decoration-color: rgba(13, 148, 136, 0.4) !important;
+            color: #0D9488 !important;
+            font-weight: 600 !important;
+        }
+        .plant-card {
+            transition: transform 0.3s ease;
+        }
+        .plant-card:hover {
+            transform: translateY(-4px);
+        }
+        .species-count {
+            transition: all 0.3s ease;
+        }
+        .species-count:hover {
+            transform: scale(1.1);
+        }
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #B7F0AD, #E8D33F);
+            color: #432323;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #backToTop.visible {
+            opacity: 1;
+        }
+        #backToTop:hover {
+            transform: scale(1.1);
+        }
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-container {
+            overflow: hidden;
+            white-space: nowrap;
+            background-color: #E8D33F;
+            border-top: 1px solid #432323;
+            border-bottom: 1px solid #432323;
+            padding: 1rem 0;
+            position: relative;
+        }
+        .ticker-content {
+            display: inline-flex;
+            animation: ticker-scroll 30s linear infinite;
+        }
+        .ticker-message {
+            display: inline-block;
+            padding: 0 2rem;
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #432323;
+        }
+        .ticker-message a {
+            color: #FF6B9D;
+            text-decoration: underline;
+            text-decoration-color: #0D9488;
+            font-weight: bold;
+        }
+        .ticker-message a:hover {
+            color: #312818;
+        }
+        .ticker-separator {
+            display: inline-block;
+            padding: 0 1rem;
+            color: #432323;
+        }
+    </style>
+</head>
+<body class="min-h-screen" style="background-color: #FFF8DC;">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-sm z-50" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); background-size: 200% 200%; animation: gradientShift 5s ease infinite;">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between relative">
+                <div class="w-10 md:w-0"></div>
+                <h1 class="text-2xl md:text-3xl font-bold text-center flex-1" style="color: #312818; letter-spacing: 2px;">
+                    In Bloom
+                </h1>
+                <!-- Hamburger Menu Button (Mobile) -->
+                <div class="md:hidden flex items-center justify-center">
+                    <button id="mobileMenuBtn" class="p-2 relative flex items-center justify-center" style="color: #432323;" aria-label="Toggle menu">
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Navigation Menu -->
+            <nav id="mainNav" class="hidden md:flex mt-4 justify-center gap-8 md:gap-12">
+                <a href="index.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">About</a>
+                <a href="resources.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+            <!-- Mobile Navigation Menu -->
+            <nav id="mobileNav" class="hidden md:hidden mt-4 flex-col gap-6 py-4">
+                <a href="index.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">About this Garden</a>
+                <a href="resources.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Ticker Banner -->
+    <div class="ticker-container">
+        <div class="ticker-content">
+            <span class="ticker-message">Welcome Neighbor! Enjoy your walk!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Plant more native plants!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Mosquito fogging is a scam! Learn more in the <a href="about.html">Q&A</a></span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Welcome Neighbor! Enjoy your walk!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Plant more native plants!</span>
+            <span class="ticker-separator">•</span>
+            <span class="ticker-message">Mosquito fogging is a scam! Learn more in the <a href="about.html">Q&A</a></span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="w-full py-12 fade-in" style="background: linear-gradient(135deg, rgba(183, 240, 173, 0.1), rgba(232, 211, 63, 0.1)); width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+        <div class="w-full px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
+            <!-- What's Going On in the Garden Headline -->
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-center gradient-headline" style="letter-spacing: 2px;">
+                What's Going On in the Garden
+            </h2>
+            <p class="text-base md:text-lg leading-relaxed mb-8 text-center" style="color: #432323;">
+                The latest happenings from around the yard. Check back seasonally for updates!
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Prairie Smoke Card -->
+                <div class="plant-card bg-white rounded-2xl p-6 shadow-xl">
+                    <div class="relative mb-4">
+                        <img src="Images/prairiesmoke_spring.JPG" alt="Prairie Smoke" class="w-full h-64 object-cover rounded-lg">
+                        <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: #E8D33F; color: #312818;">
+                            Spring
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">An early and unique bloomer: Prairie Smoke</h3>
+                    <p class="text-base leading-relaxed" style="color: #432323;">
+                        Prairie smoke is one of the earliest species to bloom in the spring. After it flowers, the flower heads look like troll hair! This is one of the most surreal looking plants in my garden and is essential in feeding early waking pollinators each spring.
+                    </p>
+                </div>
+
+                <!-- Peony Card -->
+                <div class="plant-card bg-white rounded-2xl p-6 shadow-xl">
+                    <div class="relative mb-4">
+                        <img src="Images/peony.JPEG" alt="Peony" class="w-full h-64 object-cover rounded-lg">
+                        <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: #E8D33F; color: #312818;">
+                            Late Spring
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Late Spring Brings Gorgeous Peony Blooms</h3>
+                    <p class="text-base leading-relaxed" style="color: #432323;">
+                        Peonies are a lovely early spring bloomer. I have a variety of peonies throughout the yard.
+                    </p>
+                </div>
+
+                <!-- Coneflower Card -->
+                <div class="plant-card bg-white rounded-2xl p-6 shadow-xl">
+                    <div class="relative mb-4">
+                        <img src="Images/monarch.JPEG" alt="Coneflower" class="w-full h-64 object-cover rounded-lg">
+                        <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold" style="background-color: #E8D33F; color: #312818;">
+                            Summer
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Planting Coneflower now for blooms later</h3>
+                    <p class="text-base leading-relaxed" style="color: #432323;">
+                        I'm planting coneflower seeds now because they require no germination period and will awaken in the summer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Species Counts Section -->
+        <section class="mb-8 fade-in" style="padding-bottom: 24px;">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-2xl">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-center section-headline">
+                    Garden Stats
+                </h2>
+                <p class="text-base md:text-lg leading-relaxed mb-6 text-center" style="color: #432323;">
+                    When I first moved in, I barely had any pollinator or insect activity within my garden. I've made it my goal to try to increase the insect activity for a healthier ecosystem.
+                </p>
+
+                <style>
+                    .species-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+                    .species-stat-card { background: linear-gradient(135deg, #FF6B9D, #FF8C42); border-radius: 12px; padding: 14px 16px; }
+                    .species-stat-label { font-size: 11px; color: #FFE2EC; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; font-family: 'Fraunces', serif; }
+                    .species-stat-value { font-size: 26px; font-weight: bold; color: #ffffff; font-family: 'Fraunces', serif; }
+                    .species-controls-row { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+                    .species-search-box { position: relative; flex: 1; min-width: 180px; }
+                    .species-search-box svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: #888; pointer-events: none; }
+                    .species-search-box input { padding-left: 34px !important; width: 100%; border: 1px solid #ddd; border-radius: 10px; padding: 8px 12px; font-size: 14px; outline: none; font-family: 'Inter', sans-serif; }
+                    .species-search-box input:focus { border-color: #FF6B9D; box-shadow: 0 0 0 2px rgba(255,107,157,0.15); }
+                    .species-controls-row select { min-width: 120px; border: 1px solid #ddd; border-radius: 10px; padding: 8px 12px; font-size: 14px; background: #fff; outline: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+                    .species-controls-row select:focus { border-color: #FF6B9D; box-shadow: 0 0 0 2px rgba(255,107,157,0.15); }
+                    .species-table-container { overflow-x: auto; border: 1px solid #f0e4c8; border-radius: 14px; }
+                    .species-data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+                    .species-data-table thead tr { background: linear-gradient(90deg, #FF6B9D, #FF8C42); }
+                    .species-data-table thead th { padding: 12px 16px; text-align: left; font-weight: bold; font-size: 12px; color: #FFE2EC; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; white-space: nowrap; user-select: none; font-family: 'Fraunces', serif; }
+                    .species-data-table thead th:hover { color: #ffffff; }
+                    .species-data-table thead th .sort-arrow { display: inline-block; margin-left: 4px; opacity: 0.55; font-size: 11px; }
+                    .species-data-table thead th.sorted .sort-arrow { opacity: 1; }
+                    .species-data-table tbody tr { border-top: 1px solid #F5E7C6; transition: background 0.1s; }
+                    .species-data-table tbody tr:hover { background: #FAF3E1; }
+                    .species-data-table tbody td { padding: 11px 16px; color: #312818; vertical-align: middle; }
+                    .species-type-badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+                    .species-type-badge-bee { background: #fef0db; color: #7a4100; }
+                    .species-type-badge-butterfly { background: #fde8f2; color: #7a0a3e; }
+                    .species-type-badge-wasp { background: #fdeae3; color: #6b2008; }
+                    .species-type-badge-moth { background: #f3e8fe; color: #3d1070; }
+                    .species-type-badge-insect { background: #eaf3de; color: #173404; }
+                    .species-type-badge-fly { background: #fde8ed; color: #6b0a28; }
+                    .species-type-badge-bird { background: #e6f1fb; color: #042c53; }
+                    .species-type-badge-spider { background: #e8eaf6; color: #1a237e; }
+                    .species-notes-cell { color: #888; font-size: 13px; font-style: italic; max-width: 200px; }
+                    .species-empty-row { text-align: center; padding: 2.5rem; color: #aaa; font-size: 14px; }
+                    .species-count-label { font-size: 13px; color: #888; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; }
+                    @media (max-width: 480px) {
+                        .species-controls-row { flex-direction: column; }
+                        .species-controls-row select, .species-search-box { width: 100%; }
+                    }
+                </style>
+
+                <div class="species-stats-grid" id="speciesStatsGrid"></div>
+                <div class="species-controls-row">
+                    <div class="species-search-box">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="speciesSearchInput" placeholder="Search by name or notes…" />
+                    </div>
+                    <select id="speciesTypeFilter"><option value="">All types</option></select>
+                    <select id="speciesYearFilter"><option value="">All years</option></select>
+                </div>
+                <div class="species-count-label" id="speciesCountLabel"></div>
+                <div class="species-table-container">
+                    <table class="species-data-table">
+                        <thead>
+                            <tr>
+                                <th data-col="name">Name <span class="sort-arrow">↕</span></th>
+                                <th data-col="date">Date <span class="sort-arrow">↕</span></th>
+                                <th data-col="type">Type <span class="sort-arrow">↕</span></th>
+                                <th data-col="notes">Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="speciesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <script>
+        (function() {
+            const raw = [
+                {name:"Black Swallowtail",date:"8/25",type:"Butterfly",notes:""},
+                {name:"Peck's Skipper",date:"8/25",type:"Butterfly",notes:""},
+                {name:"Monarch",date:"8/25",type:"Butterfly",notes:""},
+                {name:"Mexican Grass-carrying wasp",date:"8/25",type:"Wasp",notes:""},
+                {name:"Golden-eyed Lacewing",date:"8/25",type:"Insect",notes:""},
+                {name:"Woody Underwing",date:"8/25",type:"Moth",notes:""},
+                {name:"Reversed Haploa Moth",date:"7/25",type:"Moth",notes:""},
+                {name:"Great Golden Digger Wasp",date:"8/25",type:"Wasp",notes:""},
+                {name:"Great Black Wasp",date:"8/25",type:"Wasp",notes:""},
+                {name:"Ligated Furrow Bee",date:"8/25",type:"Bee",notes:""},
+                {name:"Common Eastern Bumble Bee",date:"8/25",type:"Bee",notes:""},
+                {name:"Western Honey Bee",date:"8/25",type:"Bee",notes:""},
+                {name:"Brown-Belted Bumble Bee",date:"8/25",type:"Bee",notes:""},
+                {name:"Large Milkweed Bug",date:"8/25",type:"Insect",notes:""},
+                {name:"Two-spotted Bumble bee",date:"6/22",type:"Bee",notes:""},
+                {name:"Fiery Skipper",date:"9/20/25",type:"Butterfly",notes:"On anise hyssop"},
+                {name:"Polistes rubiginosus (red paper wasp)",date:"10/5/2025",type:"Wasp",notes:"Around the golden Alexander and rue"},
+                {name:"Northern paper wasp",date:"9/10/2025",type:"Wasp",notes:"On goldenrod"},
+                {name:"Common picture-winged fly",date:"10/14/2025",type:"Fly",notes:"On rattlesnake master"},
+                {name:"Katydid",date:"2025",type:"Insect",notes:""},
+                {name:"Miserable Mining bee",date:"4/26/2026",type:"Bee",notes:"On screen door"},
+                {name:"White-speck Moth",date:"4/26/2026",type:"Moth",notes:""},
+                {name:"Unequal Cellophane Bee",date:"4/22/2026",type:"Bee",notes:""},
+                {name:"German Yellowjacket",date:"4/24/2026",type:"Wasp",notes:""},
+                {name:"Dancing kiss fly",date:"6/12/2026",type:"Fly",notes:""},
+                {name:"Common Green Darner",date:"5/26/2026",type:"Insect",notes:"On Golden Alexander"},
+                {name:"American Lady Butterfly",date:"5/25/2026",type:"Butterfly",notes:"On pearly everlasting"},
+                {name:"Fork tailed bush Katydid",date:"5/25/2026",type:"Insect",notes:""},
+                {name:"Margined Calligrapher",date:"5/25/2026",type:"Fly",notes:"Aphid predator"},
+                {name:"Ladybug",date:"4/24/2026",type:"Insect",notes:"Near lilies"},
+                {name:"Twelve spotted skimmer",date:"6/24",type:"Insect",notes:""},
+                {name:"Narrow headed Marsh fly",date:"6/2/2026",type:"Fly",notes:""},
+                {name:"Virginian Tiger Moth",date:"6/10/2026",type:"Moth",notes:"Caterpillar on Figwort"},
+                {name:"European Paper Wasp",date:"6/9/2026",type:"Wasp",notes:""},
+                {name:"Western Lynx Spider",date:"6/9/2026",type:"Spider",notes:""},
+                {name:"Tomentous Soldier Beetle",date:"6/9/2026",type:"Insect",notes:""},
+                {name:"Thick Tailed Non-biting Midge",date:"6/9/2026",type:"Fly",notes:""},
+                {name:"Red Admiral",date:"6/12/2026",type:"Butterfly",notes:""},
+                {name:"Margined Leather Wing Beetle",date:"6/12/2026",type:"Insect",notes:""},
+                {name:"Black Firefly",date:"6/13",type:"Insect",notes:""},
+                {name:"Mouse Bot Fly",date:"6/14",type:"Fly",notes:""},
+                {name:"Orange Tipped Wood Digger",date:"6/14",type:"Bee",notes:""},
+                {name:"Red-bellied woodpecker",date:"11/25",type:"Bird",notes:""},
+                {name:"Northern flicker",date:"6/25",type:"Bird",notes:""},
+                {name:"Downy Woodpecker",date:"2024",type:"Bird",notes:""},
+                {name:"Ruby throated Hummingbird",date:"8/25",type:"Bird",notes:""},
+                {name:"Robin",date:"2025",type:"Bird",notes:""},
+                {name:"Cardinal",date:"2025",type:"Bird",notes:""},
+                {name:"House Sparrow",date:"2025",type:"Bird",notes:""},
+            ];
+
+            function getYear(d) {
+                if (/^\d{4}$/.test(d.trim())) return d.trim();
+                const m = d.match(/(\d{4})/);
+                if (m) return m[1];
+                const short = d.match(/\/(\d{2})$/);
+                if (short) return '20' + short[1];
+                return '';
+            }
+
+            const data = raw.map(r => ({...r, year: getYear(r.date)}));
+            const types = [...new Set(data.map(r => r.type))].sort();
+            const years = [...new Set(data.map(r => r.year).filter(Boolean))].sort((a,b) => b-a);
+
+            const typeSelect = document.getElementById('speciesTypeFilter');
+            const yearSelect = document.getElementById('speciesYearFilter');
+            types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; typeSelect.appendChild(o); });
+            years.forEach(y => { const o = document.createElement('option'); o.value = y; o.textContent = y; yearSelect.appendChild(o); });
+
+            let sortCol = 'date', sortDir = 1;
+
+            function renderSpeciesTable() {
+                const q = document.getElementById('speciesSearchInput').value.toLowerCase();
+                const tf = typeSelect.value;
+                const yf = yearSelect.value;
+
+                let rows = data.filter(r => {
+                    if (tf && r.type !== tf) return false;
+                    if (yf && r.year !== yf) return false;
+                    if (q && !r.name.toLowerCase().includes(q) && !r.notes.toLowerCase().includes(q)) return false;
+                    return true;
+                });
+
+                rows.sort((a, b) => {
+                    let av = a[sortCol] || '', bv = b[sortCol] || '';
+                    return av.localeCompare(bv) * sortDir;
+                });
+
+                const tbody = document.getElementById('speciesTableBody');
+                if (rows.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="species-empty-row">No species found matching your filters.</td></tr>';
+                } else {
+                    tbody.innerHTML = rows.map(r => `
+                        <tr>
+                            <td style="font-weight:600">${r.name}</td>
+                            <td style="color:#888;white-space:nowrap">${r.date}</td>
+                            <td><span class="species-type-badge species-type-badge-${r.type.toLowerCase()}">${r.type}</span></td>
+                            <td class="species-notes-cell">${r.notes || '<span style="opacity:0.3">—</span>'}</td>
+                        </tr>
+                    `).join('');
+                }
+
+                document.getElementById('speciesCountLabel').textContent = rows.length === data.length
+                    ? `${data.length} species total`
+                    : `${rows.length} of ${data.length} species`;
+
+                const typeCounts = {};
+                data.forEach(r => { typeCounts[r.type] = (typeCounts[r.type] || 0) + 1; });
+                const statsEl = document.getElementById('speciesStatsGrid');
+                const topTypes = Object.entries(typeCounts).sort((a,b) => b[1]-a[1]).slice(0,4);
+                statsEl.innerHTML = [
+                    `<div class="species-stat-card"><div class="species-stat-label">Total</div><div class="species-stat-value">${data.length}</div></div>`,
+                    ...topTypes.map(([t,c]) => `<div class="species-stat-card"><div class="species-stat-label">${t}s</div><div class="species-stat-value">${c}</div></div>`)
+                ].join('');
+            }
+
+            document.getElementById('speciesSearchInput').addEventListener('input', renderSpeciesTable);
+            typeSelect.addEventListener('change', renderSpeciesTable);
+            yearSelect.addEventListener('change', renderSpeciesTable);
+
+            document.querySelectorAll('.species-data-table thead th[data-col]').forEach(th => {
+                th.addEventListener('click', () => {
+                    const col = th.dataset.col;
+                    if (col === 'notes') return;
+                    if (sortCol === col) sortDir *= -1;
+                    else { sortCol = col; sortDir = 1; }
+                    document.querySelectorAll('.species-data-table thead th').forEach(t => t.classList.remove('sorted'));
+                    th.classList.add('sorted');
+                    th.querySelector('.sort-arrow').textContent = sortDir === 1 ? '↑' : '↓';
+                    renderSpeciesTable();
+                });
+            });
+
+            renderSpeciesTable();
+        })();
+        </script>
+
+        <!-- Featured Visitors Section -->
+        <section class="mb-8 fade-in" style="margin-top: 24px;">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8 text-center section-headline" style="letter-spacing: 2px;">
+                Featured Visitors
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-xl text-center">
+                    <img src="Images/monarch.JPEG" alt="Monarch" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Monarch Waystation</h3>
+                    <p class="text-sm" style="color: #432323;">You'll notice monarchs both visiting my plants as well as laying eggs on their milkweed host plants.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-xl text-center">
+                    <img src="Images/swallowtail.JPEG" alt="Swallowtail" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">New garden resident! The Black Swallowtail</h3>
+                    <p class="text-sm" style="color: #432323;">I've been trying to attract swallowtails for 3 years and it finally happened! You'll see them around the Golden Alexanders, one of their host plants.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-xl text-center">
+                    <img src="Images/firefly.JPEG" alt="Firefly" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Firefly</h3>
+                    <p class="text-sm" style="color: #432323;">I'm trying to increase the amount of fireflies in the yard by avoiding fogging services and leaving leaf litter for them in the garden beds.</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-xl text-center">
+                    <img src="Images/margaret-strickland-1pOHiQLZFGc-unsplash.jpg" alt="Northern Flicker" class="w-full h-48 object-cover rounded-lg mb-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="w-full h-48 rounded-lg flex items-center justify-center mb-4 hidden" style="background-color: #F5E7C6; color: #432323;">
+                        <span class="text-lg md:text-xl font-bold text-center px-4">
+                            Flicker (image coming soon)
+                        </span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Flicker</h3>
+                    <p class="text-sm mb-2" style="color: #432323;">A beautiful woodpecker species known for its distinctive spotted plumage and ground-foraging behavior.</p>
+                    <p class="text-xs italic mb-0" style="color: #999;">Photo by <a href="https://unsplash.com/@margaretstrickland?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer" style="color: #FF6B9D; text-decoration: underline; text-decoration-color: #0D9488; font-weight: bold;">Margaret Strickland</a> on <a href="https://unsplash.com/photos/a-northern-flicker-perches-on-a-tree-branch-1pOHiQLZFGc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener noreferrer" style="color: #FF6B9D; text-decoration: underline; text-decoration-color: #0D9488; font-weight: bold;">Unsplash</a></p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-xl text-center">
+                    <img src="Images/haploamoth.JPEG" alt="Haploa reversa moth" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2" style="color: #432323;">Haploa reversa</h3>
+                    <p class="text-sm" style="color: #432323;">A beautiful native moth that feeds off of the crabapple tree in my yard. It has a bright orange head and lovely patterned wings.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">↑</button>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); border-top: 3px solid #312818;">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Site Navigation</h3>
+                    <nav class="flex flex-col gap-2">
+                        <a href="index.html" class="hover:underline" style="color: #FF6B9D;">Home</a>
+                        <a href="about.html" class="hover:underline" style="color: #FF6B9D;">About this Garden</a>
+                        <a href="resources.html" class="hover:underline" style="color: #FF6B9D;">Resources</a>
+                        <a href="animal-sightings.html" class="hover:underline" style="color: #FF6B9D;">Animal Sightings</a>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Contact</h3>
+                    <a href="https://forms.gle/whibKt9KnqJ884Up8" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: #FF6B9D;">Contact Me</a>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-t" style="border-color: rgba(67, 35, 35, 0.2);">
+                <p style="color: #1a1a1a; font-weight: 600;">Interactive Yard Sign • &copy; <span id="currentYear"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mainNav = document.getElementById('mainNav');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Auto-update footer year
+        const yearSpan = document.getElementById('currentYear');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

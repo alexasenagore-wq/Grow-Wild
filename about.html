@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About This Garden - Yard Sign</title>
+    <meta name="description" content="Why this native garden exists, answers to common questions about mosquitoes, ticks, and wildlife, and how to start your own native landscape.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cream1': '#FAF3E1',
+                        'cream2': '#F5E7C6',
+                        'lime': '#C6D870',
+                    },
+                    fontFamily: {
+                        'fraunces': ['Fraunces', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px) rotate(-5deg); }
+            to { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px) rotate(5deg); }
+            to { opacity: 1; transform: translateX(0) rotate(0deg); }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .slide-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        .slide-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #312818;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Fraunces', serif;
+        }
+        #menuIcon, #closeIcon {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #menuIcon.hidden, #closeIcon.hidden {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+        #menuIcon:not(.hidden), #closeIcon:not(.hidden) {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+        .avant-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .avant-card:hover {
+            transform: translateY(-8px) rotate(1deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(67, 35, 35, 0.2);
+        }
+        .avant-link {
+            position: relative;
+            transition: all 0.3s ease;
+            font-family: 'Fraunces', serif;
+        }
+        .avant-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #0D9488, #312818);
+            transition: width 0.3s ease;
+        }
+        .avant-link:hover::after {
+            width: 100%;
+        }
+        .avant-link:hover {
+            transform: translateX(5px);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #0D9488, #D17B0F, #E8D33F);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+        .gradient-headline {
+            background: linear-gradient(135deg, #FF1744, #FF6B9D, #FF8C42);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+        .section-headline {
+            color: #0D9488;
+        }
+        .cam-card {
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cam-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(67,35,35,0.18);
+        }
+        .cam-photo-wrap {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .cam-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: 'Fraunces', serif;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 99px;
+            color: white;
+            z-index: 2;
+        }
+        .cam-tag-skunk { background: rgba(13,148,136,0.92); }
+        .cam-tag-opossum { background: rgba(255,107,157,0.92); }
+        .cam-tag-fox { background: rgba(255,140,66,0.92); }
+        .cam-tag-raccoon { background: rgba(209,123,15,0.92); }
+        .cam-tag-coyote { background: rgba(67,35,35,0.85); }
+        .tilt-card {
+            transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: transform 0.3s ease;
+        }
+        .tilt-card:hover {
+            transform: perspective(1000px) rotateX(-5deg) rotateY(5deg);
+        }
+        /* Underline all links in paragraph body text */
+        p a, .accordion-body a, a {
+            text-decoration: underline;
+            text-decoration-color: rgba(13, 148, 136, 0.4);
+            color: #0D9488;
+            font-weight: 600;
+        }
+        p a:hover, .accordion-body a:hover, a:hover {
+            text-decoration-color: #0D9488;
+        }
+        a[style*="text-decoration: underline"] {
+            text-decoration-color: rgba(13, 148, 136, 0.4) !important;
+            color: #0D9488 !important;
+            font-weight: 600 !important;
+        }
+        .hero-section {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, rgba(183, 240, 173, 0.3), rgba(232, 211, 63, 0.2));
+        }
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero-text-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .daylily-image {
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+        @media (min-width: 768px) {
+            .daylily-image {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen" style="background-color: #FFF8DC;">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-sm z-50" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); background-size: 200% 200%; animation: gradientShift 5s ease infinite;">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between relative">
+                <div class="w-10 md:w-0"></div>
+                <h1 class="text-2xl md:text-3xl font-bold text-center flex-1" style="color: #312818; letter-spacing: 2px;">
+                    In Bloom
+                </h1>
+                <!-- Hamburger Menu Button (Mobile) -->
+                <div class="md:hidden flex items-center justify-center">
+                    <button id="mobileMenuBtn" class="p-2 relative flex items-center justify-center" style="color: #432323;" aria-label="Toggle menu">
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menuIcon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="w-6 h-6 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="closeIcon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Navigation Menu -->
+            <nav id="mainNav" class="hidden md:flex mt-4 justify-center gap-8 md:gap-12">
+                <a href="index.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">About</a>
+                <a href="resources.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-bold avant-link" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+            <!-- Mobile Navigation Menu -->
+            <nav id="mobileNav" class="hidden md:hidden mt-4 flex-col gap-6 py-4">
+                <a href="index.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Home</a>
+                <a href="about.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">About this Garden</a>
+                <a href="resources.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Resources</a>
+                <a href="animal-sightings.html" class="text-lg font-medium hover:underline block py-3 px-4" style="color: #312818; font-family: 'Fraunces', serif;">Animal Sightings</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner fade-in" style="width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; margin-bottom: 2rem; background: linear-gradient(135deg, rgba(183, 240, 173, 0.1), rgba(232, 211, 63, 0.1)); padding: 3rem 1rem;">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <!-- Text Content on Left -->
+                <div class="flex-1">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6" style="color: #432323; font-family: 'Fraunces', serif;">
+                        My Gardening Journey
+                    </h2>
+                    <p class="text-base md:text-lg leading-relaxed mb-4" style="color: #432323;">
+                        I'm a novice gardener dedicated to creating a sustainable, wildlife-friendly space that supports local biodiversity. I hope this website makes your walks a little more interesting and inspires you to experiment with creating your own garden habitat. 
+                    </p>
+                    <p class="text-base md:text-lg leading-relaxed mb-4" style="color: #432323;">
+                        If you see this webpage and think to yourself, "Wow, I didn't know that type of bird existed in Northbrook!" or "Whoa, that is one beautiful butterfly landing on that unique flower!" then you've made my day.
+                    </p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: #432323; font-family: 'Fraunces', serif;">
+                        Don't be a stranger
+                    </h3>
+                    <p class="text-base md:text-lg leading-relaxed mb-4" style="color: #432323;">
+                        Hey neighbor, please <a href="https://forms.gle/whibKt9KnqJ884Up8" target="_blank" rel="noopener noreferrer">reach out</a> if you want any tips on creating your own native garden or if you want to chat about your yard with a fellow gardener!
+                    </p>
+                </div>
+                <!-- Image on Right -->
+                <div class="flex-1" style="transform: rotate(-2deg);">
+                    <img src="Images/swallowtail.JPEG" 
+                         alt="Black swallowtail butterfly on Golden Alexander plants" 
+                         class="w-full h-auto rounded-2xl shadow-2xl object-cover"
+                         style="max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Starting Point: Invasive Species Section -->
+        <section class="mb-8 fade-in">
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Starting Point: Invasive Species Tile -->
+                <div class="flex-1 bg-white rounded-2xl p-6 md:p-8 shadow-2xl border-4" style="border-color: #B7F0AD;">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 text-center" style="color: #432323;">
+                        How it started: Removing invasive species
+                    </h3>
+                    <div class="mb-4 flex flex-col items-center">
+                        <img src="Images/daylilly.JPG" alt="Daylilies" class="daylily-image rounded-lg mb-2">
+                        <p class="text-sm md:text-base text-center italic" style="color: #432323; max-width: 500px;">
+                            Most of my yard was a monoculture of invasive species, like these daylillies. I removed them all by hand to make room for much more interesting and beneficial plants.
+                        </p>
+                    </div>
+                    <p class="text-base md:text-lg leading-relaxed mb-4" style="color: #432323;">
+                        When I first moved to Northbrook and finally had the yard space to begin my gardening journey, most of my yard consisted of invasive plant species including:
+                    </p>
+                    <ol class="list-decimal list-inside text-base md:text-lg leading-relaxed mb-4 space-y-2" style="color: #432323;">
+                        <li>Daylilies</li>
+                        <li>Buckthorn</li>
+                        <li><span style="text-decoration: line-through;">Amur and Tartarian Honeysuckle</span> <span style="color: #0D9488; font-weight: bold;">(eliminated!)</span></li>
+                        <li>Creeping charlie</li>
+                        <li>Garlic Mustard</li>
+                        <li><span style="text-decoration: line-through;">Rose of Sharon</span> <span style="color: #0D9488; font-weight: bold;">(eliminated!)</span></li>
+                        <li><span style="text-decoration: line-through;">Callery Pear</span> <span style="color: #0D9488; font-weight: bold;">(eliminated!)</span></li>
+                        <li><span style="text-decoration: line-through;">Burning Bush</span> <span style="color: #0D9488; font-weight: bold;">(eliminated!)</span></li>
+                    </ol>
+                    <p class="text-base md:text-lg leading-relaxed mb-2" style="color: #432323;">
+                        The early verison of the yard had very little insect life, and I never saw fireflies or butterflies stopping by. Not only was the yard boring to pollinators, but it was boring to me. These invasive species looked messy and were a pain to continously fight back in order to plant more attractive flowers. My dream of bringing in freshly cut flowers from my pollinator garden into my house was put on hold while I cut back thorny branches or dug out a million daylily tubers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q&A Section -->
+        <section class="mb-8 fade-in">
+            <div class="bg-white rounded-2xl p-6 md:p-8 shadow-2xl">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 text-center section-headline">
+                    Questions & Answers
+                </h2>
+                
+                <div class="space-y-4">
+                    <!-- Q&A Item 1 -->
+                    <div class="border-b pb-4" style="border-color: rgba(67, 35, 35, 0.2);">
+                        <button class="accordion-btn w-full text-left flex justify-between items-center py-2" style="color: #432323;" aria-expanded="false" aria-controls="qa-body-1" id="qa-btn-1">
+                            <span class="text-lg md:text-xl font-bold" style="font-family: 'Fraunces', serif;">Why did you make this website?</span>
+                            <span class="text-2xl">+</span>
+                        </button>
+                        <div class="accordion-body hidden mt-2" id="qa-body-1" role="region" aria-labelledby="qa-btn-1">
+                            <p class="text-base leading-relaxed pt-6" style="color: #432323;">
+                                I believe that homeowners have a responsibility to improve the habitat of our yards, for the benefit of all living things in nature, including our community. Also because the process is fun! It helps me connect with nature. I hope by sharing this page it inspires you to give it a try as well.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 2 -->
+                    <div class="border-b pb-4" style="border-color: rgba(67, 35, 35, 0.2);">
+                        <button class="accordion-btn w-full text-left flex justify-between items-center py-2" style="color: #432323;" aria-expanded="false" aria-controls="qa-body-2" id="qa-btn-2">
+                            <span class="text-lg md:text-xl font-bold" style="font-family: 'Fraunces', serif;">Why do you say mosquito fogging is a scam?</span>
+                            <span class="text-2xl">+</span>
+                        </button>
+                        <div class="accordion-body hidden mt-2" id="qa-body-2" role="region" aria-labelledby="qa-btn-2">
+                            <p class="text-base leading-relaxed pt-6" style="color: #432323;">
+                                Studies have shown that fogging kills beneficial insects, but not mosquitos! Fogging companies market their services, but the science doesn't support their claims.
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                But don't lose hope...the best way to kill mosquitos is in their larval stage, using a mosquito bucket and mosquito dunks that you can get from Ace hardware for less than 5 bucks. It's cheap and effective. Not convinced? Let me know if you want a demo of my mosquito bucket or if I can help you set your own one up. For more info about this technique, check out <a href="https://homegrownnationalpark.org/mosquito-bucket-challenge/" target="_blank" rel="noopener noreferrer">https://homegrownnationalpark.org/mosquito-bucket-challenge/</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 3 -->
+                    <div class="border-b pb-4" style="border-color: rgba(67, 35, 35, 0.2);">
+                        <button class="accordion-btn w-full text-left flex justify-between items-center py-2" style="color: #432323;" aria-expanded="false" aria-controls="qa-body-3" id="qa-btn-3">
+                            <span class="text-lg md:text-xl font-bold" style="font-family: 'Fraunces', serif;">Aren't you concerned about ticks?</span>
+                            <span class="text-2xl">+</span>
+                        </button>
+                        <div class="accordion-body hidden mt-2" id="qa-body-3" role="region" aria-labelledby="qa-btn-3">
+                            <p class="text-base leading-relaxed pt-6" style="color: #432323;">
+                                Yes, I am. I think they are gross and I do not want them on my property. Thankfully, I've never seen a tick in my garden.
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                But that is yet another reason I'm planting native plants.
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                Studies have shown that some non-native plants like Japanese Barberry can create micro-climates that support ticks. (<a href="https://www.cleannorth.org/2022/09/15/hate-ticks-get-rid-of-your-japanese-barberry/" target="_blank" rel="noopener noreferrer">https://www.cleannorth.org/2022/09/15/hate-ticks-get-rid-of-your-japanese-barberry/</a>)
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                Additional good news is that studies have shown that yards with more biodiversity have less ticks. (<a href="https://davidsuzuki.org/living-green/rewild-your-yard-to-fight-ticks-and-support-wildlife/" target="_blank" rel="noopener noreferrer">https://davidsuzuki.org/living-green/rewild-your-yard-to-fight-ticks-and-support-wildlife/</a>) Yards with more biodiversity attract tick predators (foxes, coyotes, skunks and hawks) and reduce the numbers of mice and deer visitors (animals which harbor the most ticks).
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                So my yard is actually less likely to support ticks than a yard without native plants.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 4 -->
+                    <div class="border-b pb-4" style="border-color: rgba(67, 35, 35, 0.2);">
+                        <button class="accordion-btn w-full text-left flex justify-between items-center py-2" style="color: #432323;" aria-expanded="false" aria-controls="qa-body-4" id="qa-btn-4">
+                            <span class="text-lg md:text-xl font-bold" style="font-family: 'Fraunces', serif;">Aren't you worried about coyotes or other animals living in your yard?</span>
+                            <span class="text-2xl">+</span>
+                        </button>
+                        <div class="accordion-body hidden mt-2" id="qa-body-4" role="region" aria-labelledby="qa-btn-4">
+                            <p class="text-base leading-relaxed pt-6" style="color: #432323;">
+                                No, I'm not. I cheer when I see a coyote in the neighborhood because they are hard at work keeping our Chicagoland rat populations in check. There are no coyotes living in my yard because the habitat layout does not meet their needs. I have a trail camera (<a href="animal-sightings.html">see the animal sightings page</a>) so I know that all the animals are just passing through my yard instead of seeking a permanent residence. If you are curious about your own yard, I recommend setting up a trail camera in your own backyard. You might be surprised at your own set of visitors!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Item 5 -->
+                    <div class="border-b pb-4" style="border-color: rgba(67, 35, 35, 0.2);">
+                        <button class="accordion-btn w-full text-left flex justify-between items-center py-2" style="color: #432323;" aria-expanded="false" aria-controls="qa-body-5" id="qa-btn-5">
+                            <span class="text-lg md:text-xl font-bold" style="font-family: 'Fraunces', serif;">How can I start adding native plants to my own landscape?</span>
+                            <span class="text-2xl">+</span>
+                        </button>
+                        <div class="accordion-body hidden mt-2" id="qa-body-5" role="region" aria-labelledby="qa-btn-5">
+                            <p class="text-base leading-relaxed pt-6" style="color: #432323;">
+                                We're so lucky that the Northbrook Garden club (<a href="https://northbrookgardenclub.org/" target="_blank" rel="noopener noreferrer">https://northbrookgardenclub.org/</a>) sells native plants at their annual plant sale in May. Also Gloria Dei Lutheran church has an annual Native Plant Fest event (<a href="https://www.gloriadeinorthbrook.org/upcoming-events/" target="_blank" rel="noopener noreferrer">https://www.gloriadeinorthbrook.org/upcoming-events/</a>) that is open and free to the public.
+                            </p>
+                            <p class="text-base leading-relaxed mt-4" style="color: #432323;">
+                                I'm also happy to share native seeds with you harvested from my own garden, while supplies last. Let me know you're interested on this <a href="https://forms.gle/bHeVchKCnZqzMRap8" target="_blank" rel="noopener noreferrer">Contact form</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8" style="background: linear-gradient(135deg, #B7F0AD, #E8D33F); border-top: 3px solid #312818;">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Site Navigation</h3>
+                    <nav class="flex flex-col gap-2">
+                        <a href="index.html" class="hover:underline" style="color: #FF6B9D;">Home</a>
+                        <a href="about.html" class="hover:underline" style="color: #FF6B9D;">About this Garden</a>
+                        <a href="resources.html" class="hover:underline" style="color: #FF6B9D;">Resources</a>
+                        <a href="animal-sightings.html" class="hover:underline" style="color: #FF6B9D;">Animal Sightings</a>
+                    </nav>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4" style="color: #432323;">Contact</h3>
+                    <a href="https://forms.gle/whibKt9KnqJ884Up8" target="_blank" rel="noopener noreferrer" class="hover:underline" style="color: #FF6B9D;">Contact Me</a>
+                </div>
+            </div>
+            <div class="text-center pt-4 border-t" style="border-color: rgba(67, 35, 35, 0.2);">
+                <p style="color: #1a1a1a; font-weight: 600;">Interactive Yard Sign • &copy; <span id="currentYear"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mainNav = document.getElementById('mainNav');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        }
+
+        // Auto-update footer year
+        const yearSpan = document.getElementById('currentYear');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const body = btn.nextElementSibling;
+                const icon = btn.querySelector('span:last-child');
+                body.classList.toggle('hidden');
+                const isExpanded = !body.classList.contains('hidden');
+                icon.textContent = isExpanded ? '−' : '+';
+                btn.setAttribute('aria-expanded', isExpanded);
+            });
+        });
+    </script>
+</body>
+</html>
