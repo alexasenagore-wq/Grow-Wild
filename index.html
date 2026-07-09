@@ -695,7 +695,7 @@
                 const topTypes = Object.entries(typeCounts).sort((a,b) => b[1]-a[1]).slice(0,4);
                 statsEl.innerHTML = [
                     `<div class="species-stat-card"><div class="species-stat-label">Total</div><div class="species-stat-value">${data.length}</div></div>`,
-                    ...topTypes.map(([t,c]) => `<div class="species-stat-card"><div class="species-stat-label">${t}s</div><div class="species-stat-value">${c}</div></div>`)
+                    ...topTypes.map(([t,c]) => `<div class="species-stat-card"><div class="species-stat-label">${t === 'Fly' ? 'Flies' : t + 's'}</div><div class="species-stat-value">${c}</div></div>`)
                 ].join('');
             }
 
