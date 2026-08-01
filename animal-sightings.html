@@ -81,6 +81,9 @@
         .cam-tag-fox { background: rgba(255,140,66,0.92); }
         .cam-tag-raccoon { background: rgba(209,123,15,0.92); }
         .cam-tag-coyote { background: rgba(67,35,35,0.85); }
+        .cam-tag-rabbit { background: rgba(120,80,180,0.92); }
+        .cam-tag-unknown { background: rgba(100,100,100,0.85); }
+        .cam-timestamp { font-size: 11px; color: #999; margin-top: 3px; }
         body { font-family: 'Inter', sans-serif; color: #312818; }
         h1, h2, h3, h4, h5, h6 { font-family: 'Fraunces', serif; }
         #menuIcon, #closeIcon { transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; }
@@ -211,7 +214,7 @@
     <!-- Hero -->
     <section class="w-full py-12 fade-in" style="background: linear-gradient(135deg, rgba(183, 240, 173, 0.1), rgba(232, 211, 63, 0.1)); width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
         <div class="container mx-auto px-4 max-w-6xl">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-center gradient-headline" style="letter-spacing: 2px;">Animal Sightings</h2>
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-center gradient-headline" style="letter-spacing: 2px; padding-bottom: 0.15em;">Animal Sightings</h2>
             <p class="text-base md:text-lg leading-relaxed text-center" style="color: #432323;">Trail cam photos and wildlife caught on camera in the garden.</p>
         </div>
     </section>
@@ -222,48 +225,115 @@
         <section class="mb-12 fade-in">
             <h3 class="text-2xl md:text-4xl font-bold mb-6 section-headline">Trail Cam Photos</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-skunk">Skunk</span>
-                        <img src="Images/Trailcam1.jpg" alt="Trail cam 1 - Skunk" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/Trailcam1.jpg" alt="Skunk foraging near garden bed at night" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">Looking for dinner (grubs)</p>
+                    <p class="cam-timestamp">06/02/2026 · 11:44 PM</p>
                 </div>
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-opossum">Opossum</span>
-                        <img src="Images/Trailcam2.jpg" alt="Trail cam 2 - Opossum" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/Trailcam2.jpg" alt="Opossum passing through the yard at night" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">Passing through</p>
+                    <p class="cam-timestamp">08/2025</p>
                 </div>
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-fox">Grey fox</span>
-                        <img src="Images/trailcam3.jpg" alt="Trail cam 3 - Grey fox" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/trailcam3.jpg" alt="Possible grey fox captured on trail cam" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">My guess, based on the rounded ears</p>
+                    <p class="cam-timestamp">08/2025</p>
                 </div>
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-raccoon">Raccoons</span>
-                        <img src="Images/trailcam4.jpg" alt="Trail cam 4 - Raccoons" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/trailcam4.jpg" alt="Raccoons passing through the yard" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">Passing through</p>
+                    <p class="cam-timestamp">08/2025</p>
                 </div>
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-coyote">Coyote</span>
-                        <img src="Images/trailcam5.jpg" alt="Trail cam 5 - Coyote" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/trailcam5.jpg" alt="Coyote at night looking for food" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">Looking for dinner</p>
+                    <p class="cam-timestamp">08/2025</p>
                 </div>
+
                 <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
                     <div class="cam-photo-wrap">
                         <span class="cam-tag cam-tag-skunk">Skunk</span>
-                        <img src="Images/trailcam6.jpg" alt="Trail cam 6 - Skunk spraying" class="w-full aspect-video object-cover mb-0">
+                        <img src="Images/trailcam6.jpg" alt="Skunk spraying the trail camera" class="w-full aspect-video object-cover mb-0">
                     </div>
                     <p class="text-sm mt-3" style="color: #432323;">Spraying my camera</p>
+                    <p class="cam-timestamp">06/02/2026 · 11:44 PM</p>
                 </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-skunk">Skunk</span>
+                        <img src="Images/trailcam7.jpg" alt="Skunk near garden bed at night" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Skunk foraging near the garden</p>
+                    <p class="cam-timestamp">07/20/2026 · 9:08 PM</p>
+                </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-opossum">Opossum</span>
+                        <img src="Images/trailcam9.jpg" alt="Opossum crossing the yard in the early morning" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Opossum on the move</p>
+                    <p class="cam-timestamp">07/21/2026 · 3:39 AM</p>
+                </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-coyote">Coyote</span>
+                        <img src="Images/trailcam10.jpg" alt="Coyote near the fence in early morning" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Slinking along the fence line</p>
+                    <p class="cam-timestamp">07/21/2026 · 3:58 AM</p>
+                </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-raccoon">Raccoon</span>
+                        <img src="Images/trailcam11.jpg" alt="Raccoon moving across the yard at night" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Raccoon making its rounds</p>
+                    <p class="cam-timestamp">07/21/2026 · 4:08 AM</p>
+                </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-coyote">Coyote</span>
+                        <img src="Images/trailcam12.jpg" alt="Coyote walking through the garden in daytime" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Bold daytime coyote in the garden</p>
+                    <p class="cam-timestamp">07/22/2026 · 10:03 AM</p>
+                </div>
+
+                <div class="cam-card bg-white rounded-2xl p-4 shadow-xl">
+                    <div class="cam-photo-wrap">
+                        <span class="cam-tag cam-tag-coyote">Coyote</span>
+                        <img src="Images/trailcam13.jpg" alt="Coyote running through the yard in daytime" class="w-full aspect-video object-cover mb-0">
+                    </div>
+                    <p class="text-sm mt-3" style="color: #432323;">Best shot yet — coyote running through the yard</p>
+                    <p class="cam-timestamp">07/22/2026 · 10:39 AM</p>
+                </div>
+
             </div>
         </section>
     </main>
